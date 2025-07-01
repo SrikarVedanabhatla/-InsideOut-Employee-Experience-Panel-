@@ -2,63 +2,99 @@
 
 **Powered by Srikar Vedanabhatla**
 
-InsideOut is a **modern feedback collection system** designed for employees to share their experience with the organization. This project offers a **modular, futuristic, and customizable template** using HTML, CSS, JavaScript, and a backend built on **Node.js and MySQL**.
+InsideOut is a futuristic and interactive web-based feedback system designed for employees to share their workplace experience. It features:
 
-It includes everything needed to collect, store, and visualize feedback — making it perfect for HR teams, managers, and developers who want to implement an internal feedback loop.
+- A modern, responsive frontend built with HTML, CSS, and JavaScript
+- Real-time form validation
+- Dynamic dashboards with Plotly.js
+- Backend integration using **Node.js** and **MySQL**
 
-> 🧠 **Note:** This is a template project and can be **improvised** based on future needs.
-
----
-
-## 📁 Included Files
-
-| File Name             | Description                                                          |
-|-----------------------|----------------------------------------------------------------------|
-| `login.html`          | Login page template                                                  |
-| `form.html`           | Feedback submission form for employees                               |
-| `view-feedback.html`  | Displays submitted feedback (for admin review)                       |
-| `dashboard.html`      | Admin dashboard showing charts and total responses                   |
-| `feedback.js`         | JavaScript for form validation and feedback submission               |
-| `server.js`           | ❌ **Not included** — Must be created separately with database logic |
+> ⚠️ **Note**: This is a **template project** that can be customized and improved as per your needs. It does not include the `server.js` backend file—you will need to implement it based on the structure and instructions provided below.
 
 ---
 
 ## 📜 Project Description
 
-InsideOut is built to help organizations:
+This application enables organizations to:
 
-- Capture feedback across multiple departments
-- Measure employee satisfaction and support
-- Visualize insights through charts and summaries
+- Collect structured feedback from employees
+- Monitor satisfaction across departments
+- Visualize feedback through charts and analytics
 
-With a modern UI, responsive layout, and real-time validation, this project is both functional and engaging. Data is securely stored in a **MySQL database**, and interactive charts are rendered with **Plotly.js**.
-
----
-
-## ⚙️ Requirements
-
-- [x] **Node.js** (Install from [nodejs.org](https://nodejs.org))
-- [x] **MySQL Database**
-- [ ] `server.js` (Must be written to handle database logic and API endpoints)
+The modular design and clean UI make it easy to adapt this system for any organization’s internal feedback process.
 
 ---
 
-## 🔌 Backend Setup (Manual Required)
+## 🖼️ UI Previews
 
-### ❗ `server.js` File is NOT Included
+### 🔐 Login Page
+![Login Page]![a](https://github.com/user-attachments/assets/d6ab0a4d-61da-4b98-8613-1cccd0f98439)
 
-You must **create a `server.js` file** in the project directory. This file should:
 
-- Connect to your MySQL database
-- Expose the following API routes:
+---
+
+### 📝 Feedback Form
+![Form Page]![b](https://github.com/user-attachments/assets/8d4a09b3-bd5b-445c-9ba4-5abbe581777c)
+
+
+---
+
+### 📊 Admin Dashboard
+![Dashboard Page]![e](https://github.com/user-attachments/assets/8b6f33fb-1546-4010-be7e-d6e03f35d092)
+
+
+---
+
+### 📋 View Feedback
+![View Feedback Page]![f](https://github.com/user-attachments/assets/a4ab21bc-8b37-4ffc-85ba-e7060cb4d9df)
+
+
+---
+
+### 📊 Analysis Dashboard
+![Analysis Page] ![f] ![c](https://github.com/user-attachments/assets/f040f830-3060-489b-9462-46b5b36f1a7d)
+
+## 🧾 Included Files
+
+| File Name             | Description                                                          |
+|-----------------------|----------------------------------------------------------------------|
+| `login.html`          | Login screen template                                                |
+| `form.html`           | Feedback submission form with validation                             |
+| `view-feedback.html`  | Displays submitted feedback (admin view)                             |
+| `dashboard.html`      | Analytics dashboard using Plotly.js charts                           |
+| `feedback.js`         | JavaScript for form validation and submission via Fetch API          |
+| `server.js`           | ❌ Not included — must be created to connect to MySQL and serve APIs |
+
+---
+
+## 🛠️ Technologies Used
+
+- **Frontend**:
+  - HTML5 + CSS3
+  - JavaScript
+  - Plotly.js (for charts)
+  - Google Fonts (Orbitron)
+
+- **Backend**:
+  - Node.js
+  - Express.js *(You must create your own `server.js`)*
+  - MySQL (for storing and querying feedback)
+
+---
+
+## ⚙️ Backend Setup
+
+> 🧩 You must **create a `server.js` file** to handle server logic and database communication.
+
+### ✅ Required Endpoints
 
 | Method | Endpoint                         | Description                          |
 |--------|----------------------------------|--------------------------------------|
-| POST   | `/submit-feedback`              | Stores feedback in the database      |
+| POST   | `/submit-feedback`              | Receives and stores feedback         |
 | GET    | `/api/feedback-summary`         | Returns average scores per category  |
-| GET    | `/api/department-distribution`  | Returns department-wise stats        |
+| GET    | `/api/department-distribution`  | Returns count of responses per department |
 
-### 📦 Example SQL Table
+### 🗃️ MySQL Table Example
 
 ```sql
 CREATE TABLE feedback (
