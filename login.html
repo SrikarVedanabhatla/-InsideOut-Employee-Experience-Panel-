@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Employee Review Space</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Orbitron', sans-serif;
+      background: linear-gradient(to right, #000428, #004e92);
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      overflow: hidden;
+    }
+
+    .login-container {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(12px);
+      padding: 40px 30px;
+      border-radius: 20px;
+      text-align: center;
+      box-shadow: 0 0 30px rgba(0, 255, 255, 0.2);
+      animation: fadeIn 1s ease-out;
+      width: 320px;
+    }
+
+    h1 {
+      color: #00ffe7;
+      font-size: 24px;
+      margin-bottom: 10px;
+      text-shadow: 0 0 10px #00ffe7;
+    }
+
+    .tagline {
+      font-size: 12px;
+      color: #ccc;
+      margin-bottom: 25px;
+    }
+
+    label {
+      display: block;
+      text-align: left;
+      margin-top: 10px;
+      font-size: 14px;
+    }
+
+    input[type="text"],
+    input[type="password"] {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      margin-bottom: 15px;
+      border: none;
+      border-radius: 8px;
+      background-color: rgba(255, 255, 255, 0.1);
+      color: white;
+      font-size: 14px;
+      outline: none;
+    }
+
+    input::placeholder {
+      color: #bbb;
+    }
+
+    button {
+      background: linear-gradient(90deg, #00ffe7, #00b3ff);
+      color: black;
+      font-weight: bold;
+      padding: 12px;
+      border: none;
+      border-radius: 30px;
+      width: 100%;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 20px #00ffe7;
+    }
+
+    #loginStatus {
+      margin-top: 15px;
+      font-weight: bold;
+    }
+
+    .top-right-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      padding: 10px 18px;
+      background-color: #ff007f;
+      border: none;
+      border-radius: 20px;
+      color: white;
+      font-size: 13px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      font-family: 'Orbitron', sans-serif;
+      z-index: 100;
+    }
+
+    .top-right-btn:hover {
+      background-color: #ff338f;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 500px) {
+      .login-container {
+        width: 90%;
+        padding: 30px 20px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Top-right button to form.html -->
+  <button class="top-right-btn" onclick="location.href='form.html'">Fill Review Form</button>
+
+  <!-- Login Card -->
+  <div class="login-container">
+    <h1>Employee Review Space</h1>
+    <div class="tagline">Powered by <strong>Srikar Vedanabhatla</strong></div>
+
+    <form id="loginForm">
+      <label for="username">Username</label>
+      <input type="text" id="username" placeholder="Enter your username" required />
+
+      <label for="password">Passcode</label>
+      <input type="password" id="password" placeholder="Enter your passcode" required />
+
+      <button type="submit">Login</button>
+    </form>
+    <p id="loginStatus"></p>
+  </div>
+
+  <script>
+    document.getElementById("loginForm").addEventListener("submit", function (event) {
+      event.preventDefault();
+
+      const username = document.getElementById("username").value.trim();
+      const password = document.getElementById("password").value.trim();
+
+      // Hardcoded login check (optional: replace with fetch for backend validation)
+      if (username === "admin" && password === "123") {
+        // Set login flag
+        sessionStorage.setItem('loggedIn', 'true');
+        window.location.href = "dashboard.html";
+      } else {
+        const status = document.getElementById("loginStatus");
+        status.textContent = "Invalid credentials!";
+        status.style.color = "#ff4444";
+      }
+    });
+  </script>
+</body>
+
+</html>

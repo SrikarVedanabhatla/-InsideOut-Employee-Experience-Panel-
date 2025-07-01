@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Orbitron', sans-serif;
+      background: radial-gradient(circle at top, #0f2027, #203a43, #2c5364);
+      color: #ffffff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .dashboard-container {
+      text-align: center;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(10px);
+      padding: 40px;
+      border-radius: 16px;
+      box-shadow: 0 0 30px rgba(0, 255, 255, 0.2);
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+      color: #00ffe7;
+      text-shadow: 0 0 5px #00ffe7, 0 0 10px #00ffe7;
+    }
+
+    p {
+      margin-bottom: 30px;
+      font-size: 18px;
+    }
+
+    .dashboard-button {
+      margin: 10px;
+      padding: 14px 28px;
+      font-size: 18px;
+      font-weight: bold;
+      background: linear-gradient(90deg, #00ffe7, #00b3ff);
+      color: #000;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: transform 0.3s, box-shadow 0.3s;
+      box-shadow: 0 0 15px rgba(0, 255, 255, 0.6);
+    }
+
+    .dashboard-button:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 25px rgba(0, 255, 255, 0.9), 0 0 40px rgba(0, 255, 255, 0.4);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 600px) {
+      .dashboard-container {
+        width: 90%;
+        padding: 20px;
+      }
+
+      .dashboard-button {
+        width: 100%;
+        margin: 10px 0;
+      }
+    }
+  </style>
+<script>
+  if (sessionStorage.getItem('loggedIn') !== 'true') {
+    // Redirect unauthorized users back to login
+    window.location.href = 'login.html';
+  }
+</script>
+
+</head>
+<body>
+  <div class="dashboard-container">
+    <h1>Welcome to the Dashboard</h1>
+    <p>Select an option to continue:</p>
+
+    <button class="dashboard-button" onclick="location.href='analysis.html'">
+      Go to Analysis
+    </button>
+
+    <button class="dashboard-button" onclick="location.href='view-feedback.html'">
+      View Feedback
+    </button>
+  </div>
+</body>
+</html>

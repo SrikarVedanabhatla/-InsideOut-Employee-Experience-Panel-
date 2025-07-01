@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Employee Feedback Viewer | Powered by Srikar Vednabhatla</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Orbitron', sans-serif;
+      background: linear-gradient(to right, #000428, #004e92);
+      color: white;
+      padding: 40px 20px;
+      overflow-x: hidden;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 28px;
+      margin-bottom: 40px;
+      color: #00ffe7;
+      text-shadow: 0 0 8px #00ffe7;
+    }
+
+    .feedback-card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 15px;
+      box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
+      margin: 20px auto;
+      padding: 20px;
+      max-width: 700px;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      backdrop-filter: blur(12px);
+    }
+
+    .feedback-card:hover {
+      transform: scale(1.02);
+      box-shadow: 0 0 30px rgba(0, 255, 255, 0.5);
+      background-color: rgba(255, 255, 255, 0.08);
+    }
+
+    .summary {
+      font-size: 16px;
+    }
+
+    .details {
+      margin-top: 15px;
+      display: none;
+      border-top: 1px solid rgba(255, 255, 255, 0.2);
+      padding-top: 15px;
+      animation: fadeIn 0.5s ease-in-out;
+    }
+
+    .label {
+      font-weight: bold;
+      color: #00ffe7;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-5px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .brand-tag {
+      text-align: center;
+      font-size: 14px;
+      color: #aaa;
+      margin-top: -20px;
+      margin-bottom: 40px;
+    }
+
+    @media (max-width: 768px) {
+      .feedback-card {
+        width: 90%;
+      }
+
+      h1 {
+        font-size: 22px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Employee Feedback Viewer</h1>
+  <div class="brand-tag">Powered by <strong>Srikar Vedanabhatla</strong></div>
+
+  <div id="feedback-container"></div>
+
+  <script>
+    fetch("http://localhost:3000/all-feedback")
+      .then(res => res.json())
+      .then(data => {
+        const container = document.getElementById("feedback-container");
+
+        data.forEach(entry => {
+          const card = document.createElement("div");
+          card.className = "feedback-card";
+
+          card.innerHTML = `
+            <div class="summary">
+              <span class="label">Name:</span> ${entry.Name}<br>
+              <span class="label">Employee ID:</span> ${entry.EmployeeID}
+            </div>
+            <div class="details">
+              <p><span class="label">Age:</span> ${entry.Age}</p>
+              <p><span class="label">Date:</span> ${entry.Date}</p>
+              <p><span class="label">Department:</span> ${entry.Department}</p>
+              <p><span class="label">Q1 - Work Environment:</span> ${entry.Q1_Environment} ★</p>
+              <p><span class="label">Q2 - Communication:</span> ${entry.Q2_Communication} ★</p>
+              <p><span class="label">Q3 - Manager Support:</span> ${entry.Q3_ManagerSupport} ★</p>
+              <p><span class="label">Q4 - What they enjoyed:</span> ${entry.Q4_Enjoyment}</p>
+              <p><span class="label">Q5 - Suggestions:</span> ${entry.Q5_Improvements}</p>
+            </div>
+          `;
+
+          card.addEventListener("click", () => {
+            const details = card.querySelector(".details");
+            if (details.style.display === "block") {
+              details.style.display = "none";
+            } else {
+              details.style.display = "block";
+            }
+          });
+
+          container.appendChild(card);
+        });
+      })
+      .catch(err => {
+        console.error("Error fetching feedback:", err);
+      });
+  </script>
+
+</body>
+</html>

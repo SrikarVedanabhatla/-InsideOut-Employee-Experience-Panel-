@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>InsideOut: Employee Experience Panel | Powered By Srikar Vedanabhatla</title>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Orbitron', sans-serif;
+      background: linear-gradient(to right, #000428, #004e92);
+      color: #ffffff;
+      overflow-x: hidden;
+    }
+
+    #heading {
+      text-align: center;
+      background-color: rgba(0, 255, 255, 0.05);
+      color: #00ffe7;
+      font-size: 28px;
+      padding: 30px 20px;
+      text-shadow: 0 0 10px #00ffe7;
+      border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+    }
+
+    #max_count {
+      text-align: center;
+      font-size: 20px;
+      margin: 40px auto 20px auto;
+      background: rgba(255, 255, 255, 0.07);
+      padding: 20px;
+      border-radius: 16px;
+      max-width: 700px;
+      box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+      backdrop-filter: blur(10px);
+    }
+
+    .plot-container {
+      margin: 30px auto;
+      width: 90%;
+      max-width: 800px;
+      background: rgba(255, 255, 255, 0.06);
+      padding: 25px;
+      border-radius: 16px;
+      box-shadow: 0 0 25px rgba(0, 255, 255, 0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      backdrop-filter: blur(12px);
+    }
+
+    .plot-container:hover {
+      transform: scale(1.02);
+      box-shadow: 0 0 35px rgba(0, 255, 255, 0.3);
+    }
+
+    h3 {
+      color: #00ffe7;
+      margin: 0;
+    }
+
+    @media (max-width: 600px) {
+      #heading {
+        font-size: 22px;
+        padding: 20px;
+      }
+
+      #max_count {
+        font-size: 16px;
+        padding: 15px;
+      }
+
+      .plot-container {
+        padding: 15px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="heading"><h1>InsideOut: Employee Experience Panel</h1>
+    <div style="font-size: 14px; color: #ccc;">Powered by <strong>Srikar Vedanabhatla</strong></div>
+  </div>
+
+  <div id="max_count">
+    <h3>Total Responses Collected: <span id="employeeCount">--</span></h3>
+  </div>
+
+  <div class="plot-container">
+    <div id="myPlot"></div>
+  </div>
+
+  <div class="plot-container">
+    <div id="myPlot1"></div>
+  </div>
+
+<script>
+  // Bar chart for average ratings
+  fetch('http://localhost:3000/api/feedback-summary')
+    .then(response => response.json())
+    .then(data => {
+      const labels = [
+        "Employee Satisfaction",
+        "Effective Communication",
+        "Manager Support"
+      ];
+      const values = [
+        Math.round(data.avgEnvironment),
+        Math.round(data.avgCommunication),
+        Math.round(data.avgManagerSupport)
+      ];
+
+      Plotly.newPlot("myPlot", [{
+        x: labels,
+        y: values,
+        type: "bar",
+        marker: {
+          color: ['#00ffe7', '#00c0ff', '#0099ff'],
+          line: {
+            width: 2,
+            color: 'rgba(255,255,255,0.3)'
+          }
+        }
+      }], {
+        title: {
+          text: "Employee Satisfaction Insights",
+          font: { color: "#fff" }
+        },
+        paper_bgcolor: "rgba(0,0,0,0)",
+        plot_bgcolor: "rgba(0,0,0,0)",
+        font: { color: "#ffffff" }
+      });
+
+      document.getElementById("employeeCount").textContent = data.totalResponses;
+    })
+    .catch(error => console.error("Bar chart error:", error));
+
+  // Pie chart for department distribution
+  fetch('http://localhost:3000/api/department-distribution')
+    .then(response => response.json())
+    .then(data => {
+      Plotly.newPlot("myPlot1", [{
+        labels: data.labels,
+        values: data.values,
+        type: "pie",
+        marker: {
+          colors: ['#00ffe7', '#00c0ff', '#0099ff', '#005577', '#003344']
+        }
+      }], {
+        title: {
+          text: "Responses by Department",
+          font: { color: "#fff" }
+        },
+        paper_bgcolor: "rgba(0,0,0,0)",
+        font: { color: "#ffffff" }
+      });
+    })
+    .catch(error => console.error("Pie chart error:", error));
+</script>
+
+</body>
+</html>
